@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Vector Ink Inventory</title>
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<link rel="stylesheet"
+		href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+
+<body>
+	<!-- <div id="backgroundDim"></div> -->
+	<div class="container">
+		<div id="wrapper">
+			<!-- NAVBAR -->
+			<nav class="navbar">
+				<form id="searchform" class="searchform" action="/search" method="GET">
+					<input id="search" class="searchbox" type="text" />
+					<button type="submit" class="searchsubmit" value="">
+						<i class="fa fa-search"></i>
+					</button>
+				</form>
+				<ul class="main-nav" id="js-menu">
+					<li>
+						<a href="/" class="nav-links">Home</a>
+					</li>
+					<li>
+						<div class="nav-links dropdown">
+							<span onclick="myFunction()" class="dropbtn">Add Ink</span>
+							<div id="myDropdown" class="dropdown-content">
+								<form id="addform" action="/" method="POST">
+									<input type="text" name="ink" class="searchbox" id="inktoadd" />
+									<button class="submit-location" id="addResult" type="submit">
+										<i class="fa fa-plus"></i>
+									</button>
+									<!-- <p id="duplicate"></p> -->
+								</form>
+							</div>
+						</div>
+					</li>
+					<li>
+						<a href="/all-inks" class="nav-links">All Inks</a>
+					</li>
+				</ul>
+				<span class="navbar-toggle" id="js-navbar-toggle">
+					<i onclick="navbarDrop()" class="fa fa-bars"></i>
+				</span>
+			</nav>
+
+			<!-- SEARCH INKS -->
+			<form id="form" value="<%= ink.location %>" data-id="<%= ink._id %>" action="/<%= ink._id %>?_method=PUT"
+				method="POST">
+				<div class="bucket-name result-id bucket-name-placeholder" id="result">Search for an ink</div>
+				<span class="hidden-results" id="resultloc0"></span>
+				<span class="hidden-results" id="resultloc1"></span>
+				<span class="hidden-results" id="resultloc2"></span>
+				<span class="hidden-results" id="resultloc3"></span>
+				<span class="hidden-results" id="resultloc4"></span>
+				<span class="hidden-results" id="resultloc5"></span>
+				<span class="hidden-results" id="resultloc6"></span>
+				<span class="hidden-results" id="resultloc7"></span>
+				<span class="hidden-results" id="resultloc8"></span>
+				<span class="hidden-results" id="resultloc9"></span>
+				<div class="location-selector">
+					<div id="ntmd-button" class="location-button">
+						<input type="radio" id="select-ntmd" class="select-radio update-loc" name="ink[location]"
+							value="NTMD" />
+						<label for="select-ntmd"><%= locationArray[0] %></label>
+					</div>
+
+					<div id="shlf-button" class="location-button">
+						<input type="radio" id="select-shlf" class="select-radio update-loc" name="ink[location]"
+							value="SHLF" />
+						<label for="select-shlf"><%= locationArray[1] %></label>
+					</div>
+
+					<div id="c218-button" class="location-button">
+						<input type="checkbox" id="select-c218" class="select-checkbox update-loc" name="ink[location]"
+							value="C218" />
+						<label for="select-c218"><%= locationArray[2] %></label>
+					</div>
+
+					<div id="c312-button" class="location-button">
+						<input type="checkbox" id="select-c312" class="select-checkbox update-loc" name="ink[location]"
+							value="C312" />
+						<label for="select-c312"><%= locationArray[3] %></label>
+					</div>
+
+					<div id="c318-button" class="location-button">
+						<input type="checkbox" id="select-c318" class="select-checkbox update-loc" name="ink[location]"
+							value="C318" />
+						<label for="select-c318"><%= locationArray[4] %></label>
+					</div>
+
+					<div id="ga18-button" class="location-button">
+						<input type="checkbox" id="select-ga18" class="select-checkbox update-loc" name="ink[location]"
+							value="GA18" />
+						<label for="select-ga18"><%= locationArray[5] %></label>
+					</div>
+
+					<div id="manl-button" class="location-button">
+						<input type="checkbox" id="select-manl" class="select-checkbox update-loc" name="ink[location]"
+							value="MANL" />
+						<label for="select-manl"><%= locationArray[6] %></label>
+					</div>
+
+					<div id="smpl-button" class="location-button">
+						<input type="checkbox" id="select-smpl" class="select-checkbox update-loc" name="ink[location]"
+							value="SMPL" />
+						<label for="select-smpl"><%= locationArray[7] %></label>
+					</div>
+
+					<div id="sp10-button" class="location-button">
+						<input type="checkbox" id="select-sp10" class="select-checkbox update-loc" name="ink[location]"
+							value="SP10" />
+						<label for="select-sp10"><%= locationArray[8] %></label>
+					</div>
+
+					<div id="sp14-button" class="location-button">
+						<input type="checkbox" id="select-sp14" class="select-checkbox update-loc" name="ink[location]"
+							value="SP14" />
+						<label for="select-sp14"><%= locationArray[9] %></label>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- INKS IN USE -->
+		<div class="inuseSection">
+			<div class="inuse">
+				<div class="content">
+					<div id="press-col" class="c218-col">
+						<div id="c218-col-header" class="press-header">C218</div>
+						<ul class="sortable">
+							<!-- <li class="c218-ink"><input type="text" class="design-name"/></li> -->
+							<% ink.forEach(function(ink) { %> <% if(ink.location.includes("C218")) { %>
+								<li class="ui-state-default c218-ink"><%= ink.ink %></li>
+							<% } %> <% }) %>
+						</ul>
+					</div>
+					<div id="press-col" class="c312-col">
+						<div id="c312-col-header" class="press-header">C312</div>
+						<ul class="sortable">
+							<% ink.forEach(function(ink) { %> <% if(ink.location.includes("C312")) { %>
+								<li class="ui-state-default c312-ink"><%= ink.ink %></li>
+							<% } %> <% }) %>
+						</ul>
+					</div>
+					<div id="press-col" class="c318-col">
+						<div id="c318-col-header" class="press-header">C318</div>
+						<ul class="sortable">
+							<% ink.forEach(function(ink) { %> <% if(ink.location.includes("C318")) { %>
+								<li class="ui-state-default c318-ink"><%= ink.ink %></li>
+							<% } %> <% }) %>
+						</ul>
+					</div>
+					<div id="press-col" class="ga18-col">
+						<div id="ga18-col-header" class="press-header">GA18</div>
+						<ul class="sortable">
+							<% ink.forEach(function(ink) { %> <% if(ink.location.includes("GA18")) { %>
+								<li class="ui-state-default ga18-ink"><%= ink.ink %></li>
+							<% } %> <% }) %>
+						</ul>
+					</div>
+					<div id="press-col" class="manl-col">
+						<div id="manl-col-header" class="press-header">MANL</div>
+						<ul class="sortable">
+							<% ink.forEach(function(ink) { %> <% if(ink.location.includes("MANL")) { %>
+								<li class="ui-state-default manl-ink"><%= ink.ink %></li>
+							<% } %> <% }) %>
+						</ul>
+					</div>
+					<div id="press-col" class="smpl-col">
+						<div id="smpl-col-header" class="press-header">SMPL</div>
+						<ul class="sortable">
+							<% ink.forEach(function(ink) { %> <% if(ink.location.includes("SMPL")) { %>
+								<li class="ui-state-default smpl-ink"><%= ink.ink %></li>
+							<% } %> <% }) %>
+						</ul>
+					</div>
+					<div id="press-col" class="sp10-col">
+						<div id="sp10-col-header" class="press-header">SP10</div>
+						<ul class="sortable">
+							<% ink.forEach(function(ink) { %> <% if(ink.location.includes("SP10")) { %>
+								<li class="ui-state-default sp10-ink"><%= ink.ink %></li>
+							<% } %> <% }) %>
+						</ul>
+					</div>
+					<div id="press-col" class="sp14-col">
+						<div id="sp14-col-header" class="press-header">SP14</div>
+						<ul class="sortable">
+							<% ink.forEach(function(ink) { %> <% if(ink.location.includes("SP14")) { %>
+								<li class="ui-state-default sp14-ink"><%= ink.ink %></li>
+							<% } %> <% }) %>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="main.js"></script>
+</body>
+
+</html>

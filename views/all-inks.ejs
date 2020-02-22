@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Vector Ink Inventory</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+<button onclick="topFunction()" id="scrollTopBtn" title="Go to top"><i class="fa fa-chevron-circle-up"></i></button>
+
+<div class="container">
+    <div id="loadingDiv"  class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <div id="backgroundDim"></div>
+    <!-- Nav -->
+    <div id="wrapper">
+        <nav class="navbar">
+            <form id="scrollform" class="searchform">
+                <input id="search" class="searchbox" type="text">
+                <button type="submit" class="searchsubmit" value=""><i class="fa fa-search"></i></button>
+            </form>
+            <ul class="main-nav" id="js-menu">
+                <li>
+                    <a href="/" class="nav-links">Home</a>
+                </li>
+                <li>
+                    <div class="nav-links dropdown">
+                        <span onclick="myFunction()" class="dropbtn">Add Ink</span>
+                        <div id="myDropdown" class="dropdown-content"> 
+                            <form id="addform" action="/" method="POST" > 
+                                <input type="text" name="ink" class="searchbox" id="inktoadd">
+                                <button class="submit-location" id="addResult" type="submit"><i class="fa fa-plus"></i></button>
+                                <!-- <p id="duplicate"></p> -->
+                            </form>
+                        </div>  
+                    </div>
+                </li>
+                <li>
+                    <a href="/all-inks" class="nav-links">All Inks</a>
+                </li>
+            </ul>
+            <span class="navbar-toggle" id="js-navbar-toggle">
+                <i onclick="navbarDrop()" class="fa fa-bars"></i>
+            </span>
+        </nav>
+    </div> 
+
+    <!-- Ink List -->
+    <% ink.forEach(function(ink) { %>
+        <form class="allInksForms" value="<%= ink.location %>" data-id="<%= ink._id %>" action="/inventory" method="POST"> 
+            <div class="bucket-name"><%= ink.ink %></div>
+
+            <div class="location-selector">
+                <div id="ntmd-button" class="location-button">
+                    <input type="radio" class="update-form select-radio select-ntmd-input" name="ink[location]" value="NTMD" <%= ink.location == 'NTMD' ? 'checked' : ''%> />
+                    <label class="select-ntmd-label"><%= locationArray[0] %></label>
+                </div>
+                
+                <div id="shlf-button" class="location-button">
+                    <input type="radio" class="update-form select-radio select-shlf-input" name="ink[location]" value="SHLF" <%= ink.location == 'SHLF' ? 'checked' : ''%> />
+                    <label class="select-shlf-label"><%= locationArray[1] %></label>
+                </div>
+
+                <div id="c218-button" class="location-button">
+                    <input type="checkbox" class="update-form select-checkbox select-c218-input" name="ink[location]" value="C218" <%= ink.location.includes('C218') ? 'checked' : ''%> />
+                    <label class="select-c218-label"><%= locationArray[2] %></label>
+                </div>
+            
+                <div id="c312-button" class="location-button">  
+                    <input type="checkbox" class="update-form select-checkbox select-c312-input" name="ink[location]" value="C312" <%= ink.location.includes('C312') ? 'checked' : ''%> />
+                    <label class="select-c312-label"><%= locationArray[3] %></label>
+                </div>
+
+                <div id="c318-button" class="location-button">  
+                    <input type="checkbox" class="update-form select-checkbox select-c318-input" name="ink[location]" value="C318" <%= ink.location.includes('C318') ? 'checked' : ''%> />
+                    <label class="select-c318-label"><%= locationArray[4] %></label>
+                </div>
+
+                <div id="ga18-button" class="location-button">
+                    <input type="checkbox" class="update-form select-checkbox select-ga18-input" name="ink[location]" value="GA18" <%= ink.location.includes('GA18') ? 'checked' : ''%> />
+                    <label class="select-ga18-label"><%= locationArray[5] %></label>
+                </div>
+
+                <div id="manl-button" class="location-button">
+                    <input type="checkbox" class="update-form select-checkbox select-manl-input" name="ink[location]" value="MANL" <%= ink.location.includes('MANL') ? 'checked' : ''%> />
+                    <label class="select-manl-label"><%= locationArray[6] %></label>
+                </div>
+
+                <div id="smpl-button" class="location-button">
+                    <input type="checkbox" class="update-form select-checkbox select-smpl-input" name="ink[location]" value="SMPL" <%= ink.location.includes('SMPL') ? 'checked' : ''%> />
+                    <label class="select-smpl-label"><%= locationArray[7] %></label>
+                </div>
+
+                <div id="sp10-button" class="location-button">
+                    <input type="checkbox" class="update-form select-checkbox select-sp10-input" name="ink[location]" value="SP10" <%= ink.location.includes('SP10') ? 'checked' : ''%> />
+                    <label class="select-sp10-label"><%= locationArray[8] %></label>
+                </div>
+                
+                <div id="sp14-button" class="location-button">    
+                    <input type="checkbox" class="update-form select-checkbox select-sp14-input" name="ink[location]" value="SP14" <%= ink.location.includes('SP14') ? 'checked' : ''%> />
+                    <label class="select-sp14-label"><%= locationArray[9] %></label>
+                </div>
+
+                <!-- <button class="submit-location" type="submit">Submit</button> -->
+                <!-- <a class="delete" href="delete/<%= ink.id %>" role="button" >DELETE</a> -->
+            </div>
+        </form>
+    <% }) %>
+</div>
+<script type="text/javascript" src="all-inks.js"></script>  
+</body>
+</html>
+
+

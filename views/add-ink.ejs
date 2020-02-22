@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Vector Ink Inventory</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+    <div class="container">
+    
+        <div class="row">
+            <div class="header col-xl-12">
+                <a href="/">
+                    <h1 id="home">Vector Ink Inventory</h1>
+                </a>
+            </div>
+        </div>
+
+    <div class=""> 
+        <form id="addform" action="/add-ink" method="POST" > 
+            <input type="text" placeholder="Add Ink" name="ink" class="searchbox" id="inktoadd">
+            <button class="submit-location" id="addResult" type="submit">+</button>
+            <!-- <p id="duplicate"></p> -->
+        </form>
+    </div>  
+    <!-- <%if(typeof error == "undefined"){%>
+        <h2></h2>
+    <% } else { %>
+         <h1> <%= error %> </h1>
+    <%}%> -->
+</div>
+<script src="main.js"></script>  
+</body>
+</html>
+
+
